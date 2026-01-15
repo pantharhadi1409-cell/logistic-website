@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Shipment | NexLogistics</title>
+    <meta name="description" content="Track your cargo globally with NexLogistics.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- 1. CORE VARIABLES --- */
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+            --bg-body: #0f172a;
+            --bg-glass: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Inter', sans-serif;
+            --nav-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button,
+        select,
+        input {
+            font-family: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- 2. NAVBAR --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            height: var(--nav-height);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            min-width: 180px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 5px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            position: relative;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link span.arrow {
+            font-size: 0.7rem;
+            transition: transform 0.3s;
+        }
+
+        .nav-item:hover .nav-link span.arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--primary-light);
+            min-width: 220px;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1001;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(10px);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dropdown-item:hover {
+            background: var(--accent);
+            color: white;
+            padding-left: 20px;
+        }
+
+        /* Nav Actions */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-selector {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            color: var(--accent);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- 3. TRACKING HERO --- */
+        .tracking-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 70%);
+            padding-top: var(--nav-height);
+        }
+
+        .tracking-wrapper {
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .tracking-wrapper h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .tracking-wrapper p {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 15px;
+            background: var(--bg-glass);
+            padding: 15px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            color: white;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: #475569;
+        }
+
+        .search-btn {
+            background: var(--accent);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+        }
+
+        .search-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        /* --- 4. TRACKING RESULT --- */
+        .result-container {
+            max-width: 1000px;
+            margin: -80px auto 100px;
+            /* Overlap hero */
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tracking-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            display: none;
+            /* Hidden initially */
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header of Result */
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .status-badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .eta-box {
+            text-align: right;
+        }
+
+        .eta-box span {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .eta-box strong {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        /* Route Map Info */
+        .route-info {
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .route-point h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .route-point p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .route-divider {
+            height: 50px;
+            background: var(--border);
+            width: 1px;
+            align-self: center;
+        }
+
+        .route-divider::after {
+            content: '✈️';
+            position: absolute;
+            background: var(--primary);
+            padding: 5px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            transform: translateY(-50%) translateX(-50%);
+            left: 50%;
+            top: 50%;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: var(--border);
+            border-radius: 50%;
+            border: 2px solid var(--bg-body);
+            z-index: 2;
+        }
+
+        .timeline-item.active::after {
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .timeline-item.active h4 {
+            color: var(--accent);
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .timeline-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .timeline-loc {
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        /* --- 5. CHATBOT & FOOTER --- */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            font-family: var(--font-main);
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            transition: 0.3s;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: #1e293b;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .chat-window.open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            background: var(--primary);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .msg-bot {
+            background: var(--primary);
+            border-bottom-left-radius: 2px;
+            color: var(--text-main);
+        }
+
+        .msg-user {
+            background: var(--accent);
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
+            color: white;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            background: var(--primary);
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            color: white;
+            outline: none;
+        }
+
+        .chat-send {
+            background: transparent;
+            color: var(--accent);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #0b1120;
+            border-top: 1px solid var(--border);
+            padding: 80px 0 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h5 {
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 768px) {
+            .tracking-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .result-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .eta-box {
+                text-align: center;
+            }
+
+            .route-info {
+                grid-template-columns: 1fr;
+            }
+
+            .route-divider {
+                width: 100%;
+                height: 1px;
+                margin: 10px 0;
+            }
+
+            .route-divider::after {
+                transform: translateX(-50%) translateY(-50%);
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M10 17h4V5H10z" />
+                    <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5" />
+                    <path d="M14 17h1" />
+                    <path d="M2 17h2v-6a2 2 0 0 1 2-2h3v8" />
+                    <path d="M7 17h1" />
+                </svg>
+                Nex<span>Logistics</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Services <span class="arrow">▾</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="air-freight.html" class="dropdown-item">Air Freight <span>→</span></a></li>
+                        <li><a href="ocean-freight.html" class="dropdown-item">Ocean Freight <span>→</span></a></li>
+                        <li><a href="road-transport.html" class="dropdown-item">Road Transport <span>→</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="tracking.html" class="nav-link active">Tracking</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <select class="lang-selector">
+                    <option>EN</option>
+                </select>
+                <a href="#" class="btn-login">Log In</a>
+                <button class="btn-primary">Get Quote</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- TRACKING HERO -->
+        <section class="tracking-hero">
+            <div class="tracking-wrapper">
+                <h1>Track Your Shipment</h1>
+                <p>Enter your Bill of Lading (BL), Container Number, or Booking Reference.</p>
+
+                <div class="search-box">
+                    <input type="text" id="track-id" placeholder="e.g., NEX-8842-X9">
+                    <button class="search-btn" onclick="simulateTracking()">Track</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRACKING RESULT -->
+        <div class="result-container" id="result-area">
+            <div class="tracking-card" id="result-card">
+
+                <!-- Status Header -->
+                <div class="result-header">
+                    <div>
+                        <span class="status-badge">In Transit</span>
+                        <div style="margin-top: 10px; font-size: 1.1rem;">Ref: <span
+                                style="color: var(--text-muted);">NEX-8842-X9</span></div>
+                    </div>
+                    <div class="eta-box">
+                        <span>Estimated Arrival</span>
+                        <strong>Oct 24, 2023</strong>
+                    </div>
+                </div>
+
+                <!-- Route Visual -->
+                <div class="route-info">
+                    <div class="route-point">
+                        <h4>Shanghai, CN</h4>
+                        <p>Origin Port</p>
+                    </div>
+                    <div class="route-divider"></div>
+                    <div class="route-point">
+                        <h4>Los Angeles, US</h4>
+                        <p>Destination Port</p>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="timeline">
+                    <div class="timeline-item active">
+                        <span class="timeline-date">Oct 15, 09:30 AM</span>
+                        <h4>Departed Port of Origin</h4>
+                        <p class="timeline-loc">Vessel has departed Shanghai International Terminal.</p>
+                    </div>
+                    <div class="timeline-item active">
+                        <span class="timeline-date">Oct 14, 06:00 PM</span>
+                        <h4>Customs Clearance Outbound</h4>
+                        <p class="timeline-loc">Cargo cleared by customs authority.</p>
+                    </div>
+                    <div class="timeline-item active">
+                        <span class="timeline-date">Oct 12, 02:15 PM</span>
+                        <h4>Gate In</h4>
+                        <p class="timeline-loc">Container received at terminal.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="timeline-date">Oct 10, 11:00 AM</span>
+                        <h4>Pick Up Confirmed</h4>
+                        <p class="timeline-loc">Shipment picked up from factory warehouse.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- CHATBOT -->
+    <div class="chatbot-container">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="bot-avatar">🤖</div>
+                <div>
+                    <div style="font-weight: bold; color: white;">NexBot</div>
+                    <div style="font-size: 0.75rem; color: var(--accent);">Online</div>
+                </div>
+                <button onclick="toggleChat()"
+                    style="margin-left: auto; background: none; color: white; font-size: 1.2rem; cursor: pointer;">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message msg-bot">Enter your tracking ID above to get the latest status on your cargo.</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..."
+                    onkeypress="handleEnter(event)">
+                <button class="chat-send" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <div class="chat-toggle" onclick="toggleChat()">💬</div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>NexLogistics</h5>
+                <p style="margin-bottom: 20px; max-width: 250px;">Transparency in every step of the journey.</p>
+                <div style="display: flex; gap: 10px;"><span
+                        style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center;">in</span>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <ul>
+                    <li><a href="#">Air Freight</a></li>
+                    <li><a href="#">Ocean Freight</a></li>
+                    <li><a href="#">Tracking</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Track</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2023 NexLogistics Inc.</div>
+            <div>On Time, Every Time</div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Tracking Simulation
+        function simulateTracking() {
+            const id = document.getElementById('track-id').value;
+            const btn = document.querySelector('.search-btn');
+            const resultCard = document.getElementById('result-card');
+
+            if (!id) { alert("Please enter a tracking ID."); return; }
+
+            // Loading State
+            btn.innerText = "Locating...";
+            btn.style.opacity = "0.7";
+            resultCard.style.display = "none";
+
+            setTimeout(() => {
+                // Reset Button
+                btn.innerText = "Track";
+                btn.style.opacity = "1";
+
+                // Show Result
+                resultCard.style.display = "block";
+
+                // Scroll to result slightly
+                document.getElementById('result-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 1200);
+        }
+
+        // 2. Chatbot (Reused)
+        const chatWindow = document.getElementById('chatWindow');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        function toggleChat() { chatWindow.classList.toggle('open'); if (chatWindow.classList.contains('open')) chatInput.focus(); }
+        function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+        function sendMessage() {
+            const text = chatInput.value.trim(); if (!text) return;
+            addMessage(text, 'user'); chatInput.value = '';
+            setTimeout(() => {
+                let botReply = "I see your shipment is moving well. Anything else?";
+                if (text.toLowerCase().includes('delay')) botReply = "There are no current delays reported for this route.";
+                else if (text.toLowerCase().includes('address')) botReply = "You cannot change the destination once the ship has sailed.";
+                addMessage(botReply, 'bot');
+            }, 1000);
+        }
+        function addMessage(text, sender) {
+            const div = document.createElement('div'); div.classList.add('message'); div.classList.add(sender === 'user' ? 'msg-user' : 'msg-bot'); div.innerText = text;
+            chatBody.appendChild(div); chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | NexLogistics Portal</title>
+    <meta name="description" content="Create a new account with NexLogistics.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- 1. CORE VARIABLES --- */
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --bg-body: #0f172a;
+            --bg-glass: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        /* --- 2. SIMPLIFIED NAVBAR --- */
+        .signup-nav {
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .back-home {
+            position: absolute;
+            left: 40px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .back-home:hover {
+            color: var(--accent);
+        }
+
+        /* --- 3. SIGNUP CONTAINER --- */
+        .signup-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0f172a 100%);
+            padding: 40px 20px;
+        }
+
+        /* Abstract Background Elements */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        .orb-1 {
+            width: 450px;
+            height: 450px;
+            background: var(--accent);
+            top: -150px;
+            right: -100px;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: #10b981;
+            bottom: 0;
+            left: -50px;
+            opacity: 0.15;
+        }
+
+        .signup-card {
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .card-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .card-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- 4. ACCOUNT TYPE TOGGLE --- */
+        .type-toggle {
+            display: flex;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 25px;
+        }
+
+        .type-option {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .type-option.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- 5. FORM STYLES --- */
+        .form-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .password-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .password-row .form-group {
+            flex: 1;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .checkbox-group input {
+            accent-color: var(--accent);
+            margin-top: 4px;
+        }
+
+        .checkbox-group a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Error/Success Messages */
+        .error-msg {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-msg {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            font-weight: 600;
+        }
+
+        /* Footer Link */
+        .login-link {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .login-link a {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Footer */
+        .signup-footer {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .signup-footer a {
+            color: var(--text-muted);
+        }
+
+        .signup-footer a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .back-home {
+                display: none;
+            }
+
+            .signup-nav {
+                justify-content: center;
+            }
+
+            .password-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="signup-nav">
+        <a href="index.html" class="back-home">← Back to Home</a>
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M10 17h4V5H10z" />
+                <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5" />
+                <path d="M14 17h1" />
+                <path d="M2 17h2v-6a2 2 0 0 1 2-2h3v8" />
+                <path d="M7 17h1" />
+            </svg>
+            Nex<span>Logistics</span>
+        </div>
+    </nav>
+
+    <main class="signup-wrapper">
+        <!-- Background Orbs -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+
+        <!-- SIGNUP CARD -->
+        <div class="signup-card">
+            <div class="card-header">
+                <h1>Create Account</h1>
+                <p>Join NexLogistics to manage your supply chain.</p>
+            </div>
+
+            <form onsubmit="handleSignup(event)">
+                <!-- Account Type Toggle -->
+                <div class="type-toggle">
+                    <div class="type-option active" id="type-business" onclick="setAccountType('business')">Business
+                    </div>
+                    <div class="type-option" id="type-personal" onclick="setAccountType('personal')">Personal</div>
+                </div>
+
+                <!-- Company Name (Conditional) -->
+                <div class="form-group" id="company-group">
+                    <label class="form-label" for="company">Company Name</label>
+                    <input type="text" id="company" class="form-input" placeholder="e.g., Global Trade Inc.">
+                    <div class="error-msg" id="error-company">Company name is required.</div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="name@company.com" required>
+                </div>
+
+                <!-- Passwords -->
+                <div class="password-row">
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="••••••••"
+                            oninput="checkStrength()" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="confirm">Confirm Password</label>
+                        <input type="password" id="confirm" class="form-input" placeholder="•••••••" required>
+                        <div class="error-msg" id="error-match">Passwords do not match.</div>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy
+                            Policy</a>.</label>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn-primary" id="signupBtn">
+                    <span>Create Account</span>
+                    <div class="spinner" id="spinner"></div>
+                </button>
+
+                <!-- Success -->
+                <div class="success-msg" id="successMsg">
+                    ✅ Account Created! Redirecting to login...
+                </div>
+            </form>
+
+            <div class="login-link">
+                Already have an account? <a href="login.html">Log In</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="signup-footer">
+        <p>&copy; 2023 NexLogistics Inc. All rights reserved.</p>
+        <div style="margin-top: 5px;">
+            <a href="#">Contact Support</a> • <a href="#">Help</a>
+        </div>
+    </footer>
+
+    <script>
+        let currentType = 'business';
+
+        // 1. Toggle Account Type
+        function setAccountType(type) {
+            currentType = type;
+            const businessBtn = document.getElementById('type-business');
+            const personalBtn = document.getElementById('type-personal');
+            const companyGroup = document.getElementById('company-group');
+            const companyInput = document.getElementById('company');
+
+            if (type === 'business') {
+                businessBtn.classList.add('active');
+                personalBtn.classList.remove('active');
+                companyGroup.style.display = 'block';
+                companyInput.required = true;
+            } else {
+                businessBtn.classList.remove('active');
+                personalBtn.classList.add('active');
+                companyGroup.style.display = 'none';
+                companyInput.required = false;
+            }
+        }
+
+        // 2. Check Password Strength (Visual only)
+        function checkStrength() {
+            const pass = document.getElementById('password').value;
+            const confirm = document.getElementById('confirm').value;
+            const errorMatch = document.getElementById('error-match');
+
+            if (confirm && pass !== confirm) {
+                errorMatch.style.display = 'block';
+                document.getElementById('confirm').style.borderColor = '#ef4444';
+            } else {
+                errorMatch.style.display = 'none';
+                document.getElementById('confirm').style.borderColor = 'var(--border)';
+            }
+        }
+
+        // 3. Handle Signup
+        function handleSignup(e) {
+            e.preventDefault();
+
+            // Basic Validation
+            if (currentType === 'business' && !document.getElementById('company').value) {
+                document.getElementById('error-company').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('error-company').style.display = 'none';
+            }
+
+            const btn = document.getElementById('signupBtn');
+            const spinner = document.getElementById('spinner');
+            const btnText = btn.querySelector('span');
+            const successMsg = document.getElementById('successMsg');
+
+            // Loading State
+            btnText.style.display = "none";
+            spinner.style.display = "block";
+            btn.disabled = true;
+            btn.style.cursor = "wait";
+
+            // Simulate API
+            setTimeout(() => {
+                // Reset Button
+                btnText.style.display = "block";
+                spinner.style.display = "none";
+                btn.disabled = false;
+                btn.style.cursor = "pointer";
+
+                // Show Success
+                successMsg.style.display = "block";
+
+                // Redirect simulation
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>

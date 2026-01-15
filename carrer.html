@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | NexLogistics</title>
+    <meta name="description" content="Join the NexLogistics team. View open positions.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- 1. CORE VARIABLES --- */
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+            --bg-body: #0f172a;
+            --bg-glass: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Inter', sans-serif;
+            --nav-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button,
+        select,
+        input,
+        textarea {
+            font-family: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            border-radius: 12px;
+        }
+
+        /* --- 2. NAVBAR --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            height: var(--nav-height);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            min-width: 180px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 5px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            position: relative;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link span.arrow {
+            font-size: 0.7rem;
+            transition: transform 0.3s;
+        }
+
+        .nav-item:hover .nav-link span.arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--primary-light);
+            min-width: 220px;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1001;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(10px);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dropdown-item:hover {
+            background: var(--accent);
+            color: white;
+            padding-left: 20px;
+        }
+
+        /* Nav Actions */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-selector {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            color: var(--accent);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- 3. HERO --- */
+        .careers-hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.6)), url('https://picsum.photos/seed/meeting/1920/1080') no-repeat center center/cover;
+            padding-top: var(--nav-height);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .careers-hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .careers-hero p {
+            font-size: 1.2rem;
+            color: #e2e8f0;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-outline {
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+            padding: 14px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* --- 4. CULTURE SECTION --- */
+        .culture-section {
+            padding: 100px 0;
+            background: #0b1120;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .benefit-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .benefit-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- 5. JOB BOARD --- */
+        .jobs-section {
+            padding: 100px 0;
+        }
+
+        .filter-bar {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .job-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .job-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .job-header h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .job-loc {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .job-loc::before {
+            content: '📍';
+        }
+
+        .job-desc {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .job-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .tag-pill {
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text-muted);
+        }
+
+        .apply-link {
+            margin-top: 20px;
+            display: inline-block;
+            color: white;
+            font-weight: 600;
+            padding: 12px 0;
+            position: relative;
+        }
+
+        .apply-link::after {
+            content: '→';
+            margin-left: 8px;
+            transition: 0.3s;
+        }
+
+        .job-card:hover .apply-link {
+            color: var(--accent);
+        }
+
+        .job-card:hover .apply-link::after {
+            margin-left: 15px;
+        }
+
+        /* --- 6. APPLICATION FORM --- */
+        .app-section {
+            padding: 100px 0;
+            background: radial-gradient(circle at bottom, #1e293b 0%, #0f172a 70%);
+        }
+
+        .app-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 50px;
+        }
+
+        .app-container h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .app-container p {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border-color: var(--accent);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- 7. CHATBOT & FOOTER --- */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            font-family: var(--font-main);
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            transition: 0.3s;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: #1e293b;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .chat-window.open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            background: var(--primary);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .msg-bot {
+            background: var(--primary);
+            border-bottom-left-radius: 2px;
+            color: var(--text-main);
+        }
+
+        .msg-user {
+            background: var(--accent);
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
+            color: white;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            background: var(--primary);
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            color: white;
+            outline: none;
+        }
+
+        .chat-send {
+            background: transparent;
+            color: var(--accent);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #0b1120;
+            border-top: 1px solid var(--border);
+            padding: 80px 0 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h5 {
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 768px) {
+            .careers-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M10 17h4V5H10z" />
+                    <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5" />
+                    <path d="M14 17h1" />
+                    <path d="M2 17h2v-6a2 2 0 0 1 2-2h3v8" />
+                    <path d="M7 17h1" />
+                </svg>
+                Nex<span>Logistics</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="services.html" class="nav-link">Services <span class="arrow">▾</span></a>
+                </li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Company <span class="arrow">▾</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="careers.html" class="dropdown-item"
+                                style="background:rgba(255,255,255,0.1); color:white;">Careers <span>→</span></a></li>
+                        <li><a href="about.html" class="dropdown-item">News <span>→</span></a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="nav-actions">
+                <select class="lang-selector">
+                    <option>EN</option>
+                </select>
+                <a href="login.html" class="btn-login">Log In</a>
+                <button class="btn-primary">Get Quote</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="careers-hero">
+            <div class="hero-content">
+                <span class="tag">We're Hiring</span>
+                <h1>Build the Future of Logistics</h1>
+                <p>Join a team of 5,000+ experts moving the world. We value innovation, safety, and your growth above
+                    all else.</p>
+                <div class="hero-btns">
+                    <a href="#open-positions" class="btn-primary">View Openings</a>
+                    <a href="#culture" class="btn-outline">Our Culture</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CULTURE SECTION -->
+        <section class="culture-section" id="culture">
+            <div class="section-header">
+                <h2>Why Work With Us?</h2>
+                <p style="color: var(--text-muted);">More than just a job, it's a career path.</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>Growth</h3>
+                    <p>Internal mobility programs and global career progression paths from Entry Level to C-Suite.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌍</div>
+                    <h3>Global Impact</h3>
+                    <p>Work with clients in 120+ countries. Your work literally connects the world.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💻</div>
+                    <h3>Innovation</h3>
+                    <p>Work with the latest supply chain AI, IoT tracking, and green logistics tech.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h3>Safety First</h3>
+                    <p>Industry-leading safety records and protocols ensuring you get home safely every day.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- JOB BOARD -->
+        <section class="jobs-section" id="open-positions">
+            <div class="filter-bar">
+                <button class="filter-btn active" onclick="filterJobs('all', this)">All Departments</button>
+                <button class="filter-btn" onclick="filterJobs('operations', this)">Operations</button>
+                <button class="filter-btn" onclick="filterJobs('tech', this)">Technology</button>
+                <button class="filter-btn" onclick="filterJobs('sales', this)">Sales</button>
+            </div>
+
+            <div class="job-grid" id="jobGrid">
+                <!-- Job 1 -->
+                <div class="job-card" data-category="operations">
+                    <div class="job-header">
+                        <h3>Logistics Coordinator</h3>
+                        <div class="job-loc">New York, NY</div>
+                    </div>
+                    <p class="job-desc">Coordinate shipments, communicate with vendors, and ensure on-time delivery for
+                        our key clients.</p>
+                    <div class="job-tags">
+                        <span class="tag-pill">Full Time</span>
+                        <span class="tag-pill">On-site</span>
+                    </div>
+                    <a href="#apply" class="apply-link">Apply Now</a>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="job-card" data-category="tech">
+                    <div class="job-header">
+                        <h3>Senior Frontend Dev</h3>
+                        <div class="job-loc">Remote / US</div>
+                    </div>
+                    <p class="job-desc">Build the dashboards and tracking tools used by millions of customers worldwide.
+                        React & Next.js stack.</p>
+                    <div class="job-tags">
+                        <span class="tag-pill">Remote</span>
+                        <span class="tag-pill">Engineering</span>
+                    </div>
+                    <a href="#apply" class="apply-link">Apply Now</a>
+                </div>
+
+                <!-- Job 3 -->
+                <div class="job-card" data-category="sales">
+                    <div class="job-header">
+                        <h3>Account Manager</h3>
+                        <div class="job-loc">Chicago, IL</div>
+                    </div>
+                    <p class="job-desc">Manage relationships with B2B clients, negotiate rates, and grow the business
+                        portfolio.</p>
+                    <div class="job-tags">
+                        <span class="tag-pill">Full Time</span>
+                        <span class="tag-pill">Hybrid</span>
+                    </div>
+                    <a href="#apply" class="apply-link">Apply Now</a>
+                </div>
+
+                <!-- Job 4 -->
+                <div class="job-card" data-category="operations">
+                    <div class="job-header">
+                        <h3>Warehouse Supervisor</h3>
+                        <div class="job-loc">Los Angeles, CA</div>
+                    </div>
+                    <p class="job-desc">Oversee daily operations, manage inventory accuracy, and lead a team of 50+
+                        associates.</p>
+                    <div class="job-tags">
+                        <span class="tag-pill">Full Time</span>
+                        <span class="tag-pill">Shift Work</span>
+                    </div>
+                    <a href="#apply" class="apply-link">Apply Now</a>
+                </div>
+
+                <!-- Job 5 -->
+                <div class="job-card" data-category="tech">
+                    <div class="job-header">
+                        <h3>Data Analyst</h3>
+                        <div class="job-loc">London, UK</div>
+                    </div>
+                    <p class="job-desc">Analyze shipping routes, optimize fuel consumption, and provide insights to
+                        stakeholders.</p>
+                    <div class="job-tags">
+                        <span class="tag-pill">Full Time</span>
+                        <span class="tag-pill">Data</span>
+                    </div>
+                    <a href="#apply" class="apply-link">Apply Now</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- GENERAL APPLICATION -->
+        <section class="app-section" id="apply">
+            <div class="app-container">
+                <h2>Don't see a fit?</h2>
+                <p>Send us your resume and we'll keep you in mind for future openings.</p>
+
+                <form onsubmit="handleApplication(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-input" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">LinkedIn Profile</label>
+                        <input type="url" class="form-input" placeholder="https://linkedin.com/in/...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Cover Letter / Notes</label>
+                        <textarea class="form-textarea"
+                            placeholder="Tell us why you want to join NexLogistics..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Application</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- CHATBOT -->
+    <div class="chatbot-container">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="bot-avatar">🤖</div>
+                <div>
+                    <div style="font-weight: bold; color: white;">NexBot</div>
+                    <div style="font-size: 0.75rem; color: var(--accent);">Online</div>
+                </div>
+                <button onclick="toggleChat()"
+                    style="margin-left: auto; background: none; color: white; font-size: 1.2rem; cursor: pointer;">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message msg-bot">Hi! Looking for a new career? I can tell you about our benefits or open
+                    positions.</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..."
+                    onkeypress="handleEnter(event)">
+                <button class="chat-send" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <div class="chat-toggle" onclick="toggleChat()">💬</div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>NexLogistics</h5>
+                <p style="margin-bottom: 20px; max-width: 250px;">Empowering our employees to move the world forward.
+                </p>
+                <div style="display: flex; gap: 10px;"><span
+                        style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center;">in</span>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Company</h5>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Investors</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Careers</h5>
+                <ul>
+                    <li><a href="#">Open Positions</a></li>
+                    <li><a href="#">Life at Nex</a></li>
+                    <li><a href="#">Diversity</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <ul>
+                    <li><a href="#">Air Freight</a></li>
+                    <li><a href="#">Ocean Freight</a></li>
+                    <li><a href="#">Tracking</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2023 NexLogistics Inc. All rights reserved.</div>
+            <div>Equal Opportunity Employer</div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Job Filtering
+        function filterJobs(category, btnElement) {
+            const jobs = document.querySelectorAll('.job-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            // Toggle Buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            // Toggle Jobs
+            jobs.forEach(job => {
+                if (category === 'all' || job.getAttribute('data-category') === category) {
+                    job.style.display = 'flex';
+                } else {
+                    job.style.display = 'none';
+                }
+            });
+        }
+
+        // 2. Application Submission
+        function handleApplication(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.submit-btn');
+            const originalText = btn.innerText;
+
+            btn.innerText = "Sending...";
+            btn.style.opacity = "0.7";
+
+            setTimeout(() => {
+                btn.innerText = "✅ Sent Successfully";
+                btn.style.background = "var(--success)";
+                e.target.reset();
+
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = "var(--accent)";
+                    btn.style.opacity = "1";
+                }, 3000);
+            }, 1500);
+        }
+
+        // 3. Chatbot (Reused)
+        const chatWindow = document.getElementById('chatWindow');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        function toggleChat() { chatWindow.classList.toggle('open'); if (chatWindow.classList.contains('open')) chatInput.focus(); }
+        function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+        function sendMessage() {
+            const text = chatInput.value.trim(); if (!text) return;
+            addMessage(text, 'user'); chatInput.value = '';
+            setTimeout(() => {
+                let botReply = "We offer competitive salaries and remote options.";
+                if (text.toLowerCase().includes('benefit')) botReply = "Our benefits include health insurance, 401k matching, and paid time off.";
+                else if (text.toLowerCase().includes('remote')) botReply = "Yes, we have many remote-friendly roles in Technology and Sales.";
+                else if (text.toLowerCase().includes('apply')) botReply = "Please use the 'Send Application' form below or apply to a specific job above.";
+                addMessage(botReply, 'bot');
+            }, 1000);
+        }
+        function addMessage(text, sender) {
+            const div = document.createElement('div'); div.classList.add('message'); div.classList.add(sender === 'user' ? 'msg-user' : 'msg-bot'); div.innerText = text;
+            chatBody.appendChild(div); chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>

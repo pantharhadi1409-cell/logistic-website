@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Media | NexLogistics</title>
+    <meta name="description" content="Latest news, press releases, and updates from NexLogistics.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- 1. CORE VARIABLES --- */
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --secondary: #f59e0b;
+            --bg-body: #0f172a;
+            --bg-glass: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Inter', sans-serif;
+            --nav-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            border-radius: 12px;
+        }
+
+        /* --- 2. NAVBAR --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            height: var(--nav-height);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            min-width: 180px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 5px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            position: relative;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link span.arrow {
+            font-size: 0.7rem;
+            transition: transform 0.3s;
+        }
+
+        .nav-item:hover .nav-link span.arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--primary-light);
+            min-width: 220px;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1001;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(10px);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dropdown-item:hover {
+            background: var(--accent);
+            color: white;
+            padding-left: 20px;
+        }
+
+        /* Nav Actions */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-selector {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            color: var(--accent);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- 3. HERO --- */
+        .news-hero {
+            position: relative;
+            padding: 160px 20px 100px;
+            text-align: center;
+            background: radial-gradient(circle at 50% 30%, #1e293b 0%, #0f172a 70%);
+        }
+
+        .news-hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .news-hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- 4. FEATURED ARTICLE --- */
+        .featured-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .featured-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .featured-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .featured-card:hover .featured-img {
+            transform: scale(1.05);
+        }
+
+        .featured-content {
+            background: var(--bg-glass);
+            padding: 40px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 1px solid var(--border);
+        }
+
+        .tag-pill {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            align-self: flex-start;
+        }
+
+        .featured-content h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .featured-content p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .featured-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* --- 5. NEWS GRID --- */
+        .news-section {
+            padding: 60px 0 100px;
+        }
+
+        .filter-bar {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            display: flex;
+            gap: 15px;
+            padding: 0 20px;
+        }
+
+        .filter-btn {
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .news-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .news-card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .category-tag {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .news-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .news-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .read-more {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: auto;
+            transition: 0.3s;
+        }
+
+        .read-more:hover {
+            color: white;
+        }
+
+        /* --- 6. NEWSLETTER --- */
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--primary-light) 0%, #0f172a 100%);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 80px 0;
+        }
+
+        .newsletter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .newsletter-text h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-text p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .media-contact li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.95rem;
+        }
+
+        .media-icon {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .newsletter-form {
+            background: var(--bg-glass);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .nl-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            outline: none;
+        }
+
+        .nl-input:focus {
+            border-color: var(--accent);
+        }
+
+        .btn-full {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-full:hover {
+            background: var(--accent-hover);
+        }
+
+        /* --- 7. CHATBOT & FOOTER --- */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            font-family: var(--font-main);
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            transition: 0.3s;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: #1e293b;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .chat-window.open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            background: var(--primary);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .msg-bot {
+            background: var(--primary);
+            border-bottom-left-radius: 2px;
+            color: var(--text-main);
+        }
+
+        .msg-user {
+            background: var(--accent);
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
+            color: white;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            background: var(--primary);
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            color: white;
+            outline: none;
+        }
+
+        .chat-send {
+            background: transparent;
+            color: var(--accent);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #0b1120;
+            border-top: 1px solid var(--border);
+            padding: 80px 0 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 50px;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h5 {
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 900px) {
+            .featured-section {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .news-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M10 17h4V5H10z" />
+                    <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5" />
+                    <path d="M14 17h1" />
+                    <path d="M2 17h2v-6a2 2 0 0 1 2-2h3v8" />
+                    <path d="M7 17h1" />
+                </svg>
+                Nex<span>Logistics</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Services <span class="arrow">▾</span></a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Company <span class="arrow">▾</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="about.html" class="dropdown-item">About Us <span>→</span></a></li>
+                        <li><a href="careers.html" class="dropdown-item">Careers <span>→</span></a></li>
+                        <li><a href="news.html" class="dropdown-item"
+                                style="background:rgba(255,255,255,0.1); color:white;">News <span>→</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <select class="lang-selector">
+                    <option>EN</option>
+                </select>
+                <a href="login.html" class="btn-login">Log In</a>
+                <button class="btn-primary">Get Quote</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="news-hero">
+            <h1>News & Media Center</h1>
+            <p>The latest press releases, industry insights, and company updates.</p>
+        </section>
+
+        <!-- FEATURED ARTICLE -->
+        <section class="featured-section">
+            <div class="featured-content">
+                <span class="tag-pill">Featured Story</span>
+                <h2>NexLogistics Launches "Green Ocean" Initiative</h2>
+                <p>We are proud to announce a $50M investment in bio-fuel vessels to reduce carbon emissions by 30%
+                    across our Pacific trade lanes by 2026.</p>
+                <div class="featured-meta">
+                    <span>Oct 24, 2023</span>
+                    <a href="#" class="btn-primary" style="padding: 10px 20px;">Read Press Release</a>
+                </div>
+            </div>
+            <div class="featured-card">
+                <img src="https://picsum.photos/seed/shipgreen/800/600" alt="Green Ship" class="featured-img">
+            </div>
+        </section>
+
+        <!-- FILTER BAR -->
+        <div class="filter-bar">
+            <button class="filter-btn active">All News</button>
+            <button class="filter-btn">Press Releases</button>
+            <button class="filter-btn">Industry News</button>
+            <button class="filter-btn">Awards</button>
+        </div>
+
+        <!-- NEWS GRID -->
+        <section class="news-section">
+            <div class="news-grid">
+                <!-- Item 1 -->
+                <div class="news-card">
+                    <img src="https://picsum.photos/seed/port2/400/300" alt="Expansion" class="news-card-img">
+                    <div class="news-card-body">
+                        <div class="news-meta">
+                            <span>Oct 20, 2023</span>
+                            <span class="category-tag">Expansion</span>
+                        </div>
+                        <h3>New Warehouse Hub in Rotterdam</h3>
+                        <p>Expanding European capacity with a new automated facility, reducing transit times by 40%.</p>
+                        <a href="#" class="read-more">Read Article →</a>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="news-card">
+                    <img src="https://picsum.photos/seed/tech/400/300" alt="Tech" class="news-card-img">
+                    <div class="news-card-body">
+                        <div class="news-meta">
+                            <span>Oct 15, 2023</span>
+                            <span class="category-tag">Technology</span>
+                        </div>
+                        <h3>AI-Driven Route Optimization</h3>
+                        <p>Implementing machine learning to predict delays and optimize fuel consumption globally.</p>
+                        <a href="#" class="read-more">Read Article →</a>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="news-card">
+                    <img src="https://picsum.photos/seed/award/400/300" alt="Award" class="news-card-img">
+                    <div class="news-card-body">
+                        <div class="news-meta">
+                            <span>Sep 28, 2023</span>
+                            <span class="category-tag">Awards</span>
+                        </div>
+                        <h3>Best Supply Chain 2023</h3>
+                        <p>NexLogistics awarded "Logistics Provider of the Year" at the Global Cargo Awards.</p>
+                        <a href="#" class="read-more">Read Article →</a>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="news-card">
+                    <img src="https://picsum.photos/seed/people/400/300" alt="People" class="news-card-img">
+                    <div class="news-card-body">
+                        <div class="news-meta">
+                            <span>Sep 10, 2023</span>
+                            <span class="category-tag">Culture</span>
+                        </div>
+                        <h3>5,000 Employee Milestone</h3>
+                        <p>Celebrating our incredible workforce across 50+ countries with a global town hall.</p>
+                        <a href="#" class="read-more">Read Article →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWSLETTER -->
+        <section class="newsletter-section">
+            <div class="newsletter-container">
+                <div class="newsletter-text">
+                    <h2>Stay Informed</h2>
+                    <p>Subscribe to our monthly newsletter for executive insights, market trends, and company news.</p>
+                    <ul style="margin-top: 20px;">
+                        <li class="media-contact">
+                            <span class="media-icon">✉️</span>
+                            press@nexlogistics.com
+                        </li>
+                        <li class="media-contact">
+                            <span class="media-icon">📞</span>
+                            +1 (800) 555-0100 (Media Line)
+                        </li>
+                    </ul>
+                </div>
+                <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+                    <label
+                        style="display:block; margin-bottom: 10px; color: var(--text-muted); font-size: 0.9rem;">Enter
+                        your email</label>
+                    <div class="input-group">
+                        <input type="email" class="nl-input" placeholder="you@company.com" required>
+                    </div>
+                    <button type="submit" class="btn-full">Subscribe</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- CHATBOT -->
+    <div class="chatbot-container">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="bot-avatar">🤖</div>
+                <div>
+                    <div style="font-weight: bold; color: white;">NexBot</div>
+                    <div style="font-size: 0.75rem; color: var(--accent);">Online</div>
+                </div>
+                <button onclick="toggleChat()"
+                    style="margin-left: auto; background: none; color: white; font-size: 1.2rem; cursor: pointer;">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message msg-bot">Looking for our latest press kit or media assets?</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..."
+                    onkeypress="handleEnter(event)">
+                <button class="chat-send" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <div class="chat-toggle" onclick="toggleChat()">💬</div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>NexLogistics</h5>
+                <p style="margin-bottom: 20px; max-width: 250px;">Keeping the world informed about the future of
+                    logistics.</p>
+                <div style="display: flex; gap: 10px;"><span
+                        style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center;">in</span>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Company</h5>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">News</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <ul>
+                    <li><a href="#">Air Freight</a></li>
+                    <li><a href="#">Ocean Freight</a></li>
+                    <li><a href="#">Tracking</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Track</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2023 NexLogistics Inc.</div>
+            <div>Breaking New Ground</div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Newsletter Simulation
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-full');
+            const originalText = btn.innerText;
+
+            btn.innerText = "Subscribing...";
+            btn.style.opacity = "0.7";
+
+            setTimeout(() => {
+                btn.innerText = "✅ Subscribed!";
+                btn.style.background = "#10b981";
+                btn.style.opacity = "1";
+
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = "var(--accent)";
+                    e.target.reset();
+                }, 3000);
+            }, 1500);
+        }
+
+        // 2. Filter Buttons (Visual Toggle)
+        const filters = document.querySelectorAll('.filter-btn');
+        filters.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filters.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // 3. Chatbot (Reused)
+        const chatWindow = document.getElementById('chatWindow');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        function toggleChat() { chatWindow.classList.toggle('open'); if (chatWindow.classList.contains('open')) chatInput.focus(); }
+        function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+        function sendMessage() {
+            const text = chatInput.value.trim(); if (!text) return;
+            addMessage(text, 'user'); chatInput.value = '';
+            setTimeout(() => {
+                let botReply = "You can download our latest press kit in the Media Center.";
+                if (text.toLowerCase().includes('subscribe')) botReply = "Use the form below to subscribe to our newsletter.";
+                else if (text.toLowerCase().includes('press')) botReply = "Please email press@nexlogistics.com for media inquiries.";
+                addMessage(botReply, 'bot');
+            }, 1000);
+        }
+        function addMessage(text, sender) {
+            const div = document.createElement('div'); div.classList.add('message'); div.classList.add(sender === 'user' ? 'msg-user' : 'msg-bot'); div.innerText = text;
+            chatBody.appendChild(div); chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>

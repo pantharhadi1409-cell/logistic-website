@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | NexLogistics</title>
+    <meta name="description" content="Learn about NexLogistics history, mission, and leadership.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- 1. CORE VARIABLES --- */
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --secondary: #f59e0b;
+            --bg-body: #0f172a;
+            --bg-glass: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Inter', sans-serif;
+            --nav-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button,
+        select,
+        input {
+            font-family: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            border-radius: 12px;
+        }
+
+        /* --- 2. NAVBAR --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            height: var(--nav-height);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            min-width: 180px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 5px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            position: relative;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link span.arrow {
+            font-size: 0.7rem;
+            transition: transform 0.3s;
+        }
+
+        .nav-item:hover .nav-link span.arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--primary-light);
+            min-width: 220px;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1001;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(10px);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dropdown-item:hover {
+            background: var(--accent);
+            color: white;
+            padding-left: 20px;
+        }
+
+        /* Nav Actions */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-selector {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            color: var(--accent);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- 3. HERO --- */
+        .about-hero {
+            position: relative;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.7)), url('https://picsum.photos/seed/port/1920/1080') no-repeat center center/cover;
+            padding-top: var(--nav-height);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .tag-line {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .about-hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            color: #e2e8f0;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        /* --- 4. MISSION / VISION / VALUES --- */
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .values-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .value-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .value-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+        }
+
+        .value-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .value-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .value-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- 5. OUR STORY (SPLIT) --- */
+        .story-section {
+            background: #0b1120;
+        }
+
+        .story-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .story-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .story-content p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .story-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .s-stat h4 {
+            font-size: 2rem;
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        .s-stat p {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .story-img img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- 6. TEAM --- */
+        .team-section {
+            background: var(--bg-body);
+        }
+
+        .team-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .team-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .team-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: 0.3s;
+        }
+
+        .team-card:hover .team-img {
+            filter: grayscale(0%);
+        }
+
+        .team-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .team-info h3 {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .team-info p {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .team-socials {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+
+        /* --- 7. CTA --- */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--accent) 0%, #1d4ed8 100%);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 24px;
+        }
+
+        .cta-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--accent);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-block;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- 8. CHATBOT & FOOTER --- */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            font-family: var(--font-main);
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            transition: 0.3s;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: #1e293b;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .chat-window.open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            background: var(--primary);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .msg-bot {
+            background: var(--primary);
+            border-bottom-left-radius: 2px;
+            color: var(--text-main);
+        }
+
+        .msg-user {
+            background: var(--accent);
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
+            color: white;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            background: var(--primary);
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            color: white;
+            outline: none;
+        }
+
+        .chat-send {
+            background: transparent;
+            color: var(--accent);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #0b1120;
+            border-top: 1px solid var(--border);
+            padding: 80px 0 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h5 {
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 900px) {
+
+            .values-grid,
+            .story-container,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .story-container {
+                text-align: center;
+                gap: 40px;
+            }
+
+            .story-img {
+                order: -1;
+            }
+
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M10 17h4V5H10z" />
+                    <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5" />
+                    <path d="M14 17h1" />
+                    <path d="M2 17h2v-6a2 2 0 0 1 2-2h3v8" />
+                    <path d="M7 17h1" />
+                </svg>
+                Nex<span>Logistics</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="services.html" class="nav-link">Services <span class="arrow">▾</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="air-freight.html" class="dropdown-item">Air Freight <span>→</span></a></li>
+                        <li><a href="ocean-freight.html" class="dropdown-item">Ocean Freight <span>→</span></a></li>
+                        <li><a href="road-transport.html" class="dropdown-item">Road Transport <span>→</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="about.html" class="nav-link active">About Us</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <select class="lang-selector">
+                    <option>EN</option>
+                </select>
+                <a href="login.html" class="btn-login">Log In</a>
+                <button class="btn-primary">Get Quote</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="about-hero">
+            <div class="hero-content">
+                <div class="tag-line">Since 1995</div>
+                <h1>Connecting the World,<br>Delivering Trust.</h1>
+                <p>From a single truck to a global network spanning 120 countries, NexLogistics has evolved into the
+                    industry leader in integrated supply chain solutions.</p>
+                <a href="#mission" class="btn-white">Our Mission</a>
+            </div>
+        </section>
+
+        <!-- MISSION / VISION / VALUES -->
+        <section class="section-padding" id="mission">
+            <div class="section-header">
+                <h2>Who We Are</h2>
+                <p style="color: var(--text-muted);">Driven by purpose, powered by technology.</p>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p>To bridge continents with seamless, efficient, and sustainable logistics solutions that empower
+                        global trade.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">👁️</div>
+                    <h3>Our Vision</h3>
+                    <p>To be the world's most trusted logistics partner, known for reliability, innovation, and
+                        customer-centric service.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🛡️</div>
+                    <h3>Our Values</h3>
+                    <p>Integrity in every shipment. Innovation in every process. Sustainability in every decision.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- OUR STORY -->
+        <section class="section-padding story-section">
+            <div class="story-container">
+                <div class="story-content">
+                    <h2>A Legacy of Movement</h2>
+                    <p>It started in 1995 with a single truck and a commitment to on-time delivery. Today, NexLogistics
+                        manages millions of tonnes of cargo across air, ocean, and land.</p>
+                    <p>We don't just move boxes; we move economies. By integrating AI-driven routing with a human touch,
+                        we have reduced transit times by 20% while maintaining our 99.9% safety record.</p>
+
+                    <div class="story-stats">
+                        <div class="s-stat">
+                            <h4>28+</h4>
+                            <p>Years Experience</p>
+                        </div>
+                        <div class="s-stat">
+                            <h4>5k+</h4>
+                            <p>Team Members</p>
+                        </div>
+                        <div class="s-stat">
+                            <h4>120+</h4>
+                            <p>Countries</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-img">
+                    <img src="https://picsum.photos/seed/logistics2/600/500" alt="Company History">
+                </div>
+            </div>
+        </section>
+
+        <!-- LEADERSHIP -->
+        <section class="section-padding team-section">
+            <div class="section-header">
+                <h2>Leadership Team</h2>
+                <p style="color: var(--text-muted);">The minds behind the movement.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="https://picsum.photos/seed/ceo/400/400" alt="CEO" class="team-img">
+                    <div class="team-info">
+                        <h3>Sarah Jenkins</h3>
+                        <p>Chief Executive Officer</p>
+                        <div class="team-socials">
+                            <span>in</span>
+                            <span>tw</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <img src="https://picsum.photos/seed/cto/400/400" alt="CTO" class="team-img">
+                    <div class="team-info">
+                        <h3>David Chen</h3>
+                        <p>Chief Technology Officer</p>
+                        <div class="team-socials">
+                            <span>in</span>
+                            <span>tw</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-card">
+                    <img src="https://picsum.photos/seed/coo/400/400" alt="COO" class="team-img">
+                    <div class="team-info">
+                        <h3>Elena Rodriguez</h3>
+                        <p>VP of Global Operations</p>
+                        <div class="team-socials">
+                            <span>in</span>
+                            <span>tw</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="section-padding">
+            <div class="cta-banner">
+                <h2>Ready to move forward?</h2>
+                <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9;">Join our network of partners or explore
+                    career opportunities.</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn-white">Partner With Us</button>
+                    <button class="btn-white" style="background: transparent; border: 2px solid white;">View
+                        Careers</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CHATBOT -->
+    <div class="chatbot-container">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="bot-avatar">🤖</div>
+                <div>
+                    <div style="font-weight: bold; color: white;">NexBot</div>
+                    <div style="font-size: 0.75rem; color: var(--accent);">Online</div>
+                </div>
+                <button onclick="toggleChat()"
+                    style="margin-left: auto; background: none; color: white; font-size: 1.2rem; cursor: pointer;">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message msg-bot">Hello! Want to know more about our history or leadership?</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..."
+                    onkeypress="handleEnter(event)">
+                <button class="chat-send" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <div class="chat-toggle" onclick="toggleChat()">💬</div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>NexLogistics</h5>
+                <p style="margin-bottom: 20px; max-width: 250px;">Moving the world forward with integrity and innovation
+                    since 1995.</p>
+                <div style="display: flex; gap: 10px;"><span
+                        style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center;">in</span>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <ul>
+                    <li><a href="air.html">Air Freight</a></li>
+                    <li><a href="ocien.html">Ocean Freight</a></li>
+                    <li><a href="road.html">Road Transport</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Company</h5>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="news.html">News</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="term.html">Track</a></li>
+                    <li><a href="carrer.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="privicy.html">Privacy</a></li>
+                    <li><a href="term.html">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2023 NexLogistics Inc.</div>
+            <div>Driven by Purpose</div>
+        </div>
+    </footer>
+
+    <script>
+        // Chatbot (Reused)
+        const chatWindow = document.getElementById('chatWindow');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        function toggleChat() { chatWindow.classList.toggle('open'); if (chatWindow.classList.contains('open')) chatInput.focus(); }
+        function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+        function sendMessage() {
+            const text = chatInput.value.trim(); if (!text) return;
+            addMessage(text, 'user'); chatInput.value = '';
+            setTimeout(() => {
+                let botReply = "NexLogistics was founded in 1995.";
+                if (text.toLowerCase().includes('ceo')) botReply = "Our CEO is Sarah Jenkins, leading us since 2015.";
+                else if (text.toLowerCase().includes('job')) botReply = "You can view our careers section for openings.";
+                else if (text.toLowerCase().includes('mission')) botReply = "Our mission is to bridge continents with seamless logistics.";
+                addMessage(botReply, 'bot');
+            }, 1000);
+        }
+        function addMessage(text, sender) {
+            const div = document.createElement('div'); div.classList.add('message'); div.classList.add(sender === 'user' ? 'msg-user' : 'msg-bot'); div.innerText = text;
+            chatBody.appendChild(div); chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>

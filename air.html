@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Freight Services | NexLogistics</title>
+    <meta name="description" content="Premium air freight solutions for time-sensitive cargo.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- 1. CORE VARIABLES --- */
+        :root {
+            --primary: #0f172a;
+            --primary-light: #1e293b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --secondary: #f59e0b;
+            --bg-body: #0f172a;
+            --bg-glass: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Inter', sans-serif;
+            --nav-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button,
+        select,
+        input {
+            font-family: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- 2. NAVBAR (Same as main) --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            height: var(--nav-height);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            min-width: 180px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 5px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            position: relative;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link span.arrow {
+            font-size: 0.7rem;
+            transition: transform 0.3s;
+        }
+
+        .nav-item:hover .nav-link span.arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--primary-light);
+            min-width: 220px;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--border);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1001;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(10px);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dropdown-item:hover {
+            background: var(--accent);
+            color: white;
+            padding-left: 20px;
+        }
+
+        /* Nav Actions */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-selector {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            color: var(--accent);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- 3. PAGE SPECIFIC: HERO (Air Freight) --- */
+        .air-hero {
+            position: relative;
+            height: 60vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.6)), url('https://picsum.photos/seed/airplane/1920/1080') no-repeat center center/cover;
+            padding-top: var(--nav-height);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .air-hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .air-hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        /* --- 4. AIR FREIGHT STATS --- */
+        .stats-bar {
+            background: var(--primary-light);
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .stat-box h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .stat-box p {
+            color: var(--accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- 5. SERVICES GRID --- */
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .service-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card ul {
+            margin-top: 15px;
+        }
+
+        .service-card li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-card li::before {
+            content: '✓';
+            color: var(--accent);
+        }
+
+        /* --- 6. FAQ SECTION --- */
+        .faq-section {
+            background: #0b1120;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            background: var(--primary-light);
+        }
+
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            padding: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question span {
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+            color: var(--accent);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 20px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            padding-bottom: 20px;
+        }
+
+        /* --- 7. RATE CALCULATOR (Small) --- */
+        .calc-section {
+            padding: 80px 0;
+        }
+
+        .calc-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-glass);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+        }
+
+        .calc-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .calc-result {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        /* --- 8. CHATBOT & FOOTER (Same as main) --- */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            font-family: var(--font-main);
+        }
+
+        .chat-toggle {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+            transition: 0.3s;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: #1e293b;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .chat-window.open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            background: var(--primary);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .msg-bot {
+            background: var(--primary);
+            border-bottom-left-radius: 2px;
+            color: var(--text-main);
+        }
+
+        .msg-user {
+            background: var(--accent);
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
+            color: white;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            background: var(--primary);
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            color: white;
+            outline: none;
+        }
+
+        .chat-send {
+            background: transparent;
+            color: var(--accent);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #0b1120;
+            border-top: 1px solid var(--border);
+            padding: 80px 0 30px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h5 {
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 768px) {
+            .air-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M10 17h4V5H10z" />
+                    <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5" />
+                    <path d="M14 17h1" />
+                    <path d="M2 17h2v-6a2 2 0 0 1 2-2h3v8" />
+                    <path d="M7 17h1" />
+                </svg>
+                Nex<span>Logistics</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">Services <span class="arrow">▾</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="air-freight.html" class="dropdown-item"
+                                style="background:rgba(255,255,255,0.1); color:white;">Air Freight <span>→</span></a>
+                        </li>
+                        <li><a href="ocien.html" class="dropdown-item">Ocean Freight <span>→</span></a></li>
+                        <li><a href="road.html" class="dropdown-item">Road Transport <span>→</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="index.html" class="nav-link">Tracking</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <select class="lang-selector">
+                    <option>EN</option>
+                </select>
+                <a href="#" class="btn-login">Log In</a>
+                <button class="btn-primary">Get Quote</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO -->
+        <section class="air-hero">
+            <div class="hero-content">
+                <span class="tag">Next Flight Out Available</span>
+                <h1>Global Air Freight Solutions</h1>
+                <p>When time is critical, trust NexLogistics. We connect your business to over 200 countries with
+                    priority air cargo services.</p>
+                <button class="btn-primary"
+                    onclick="document.getElementById('calculator').scrollIntoView({behavior: 'smooth'})">Get Instant
+                    Quote</button>
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <section class="stats-bar">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <h2>200+</h2>
+                    <p>Airlines Partnered</p>
+                </div>
+                <div class="stat-box">
+                    <h2>120</h2>
+                    <p>Countries Served</p>
+                </div>
+                <div class="stat-box">
+                    <h2>24h</h2>
+                    <p>Express Delivery</p>
+                </div>
+                <div class="stat-box">
+                    <h2>99.9%</h2>
+                    <p>On-Time Performance</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AIR SERVICES -->
+        <section class="section-padding">
+            <div class="section-header">
+                <h2>Tailored Air Cargo Services</h2>
+                <p style="color: var(--text-muted);">From small packages to heavy machinery, we handle it all.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">✈️</div>
+                    <h3>Priority Air Freight</h3>
+                    <p style="color: var(--text-muted);">For your most urgent shipments. We book the next available
+                        flight to ensure delivery within 24-48 hours.</p>
+                    <ul>
+                        <li>Airport-to-Airport</li>
+                        <li>Door-to-Door</li>
+                        <li>Customs Pre-clearance</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📦</div>
+                    <h3>Charter Services</h3>
+                    <p style="color: var(--text-muted);">Full aircraft charter for oversized projects, humanitarian
+                        relief, or high-volume seasonal demand.</p>
+                    <ul>
+                        <li>Dedicated Aircraft</li>
+                        <li>Flexible Scheduling</li>
+                        <li>Heavy Lift Capability</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🧊</div>
+                    <h3>Temperature Controlled</h3>
+                    <p style="color: var(--text-muted);">Active temperature monitoring for pharmaceuticals, perishables,
+                        and high-value electronics.</p>
+                    <ul>
+                        <li>Cold Chain Solutions</li>
+                        <li>Real-time Sensors</li>
+                        <li>IATA Compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALCULATOR -->
+        <section class="calc-section" id="calculator">
+            <div class="calc-box">
+                <h3>Air Freight Rate Estimator</h3>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Calculate based on Chargeable Weight (KG)</p>
+
+                <div class="form-group">
+                    <label class="form-label">Origin</label>
+                    <select class="form-input" id="origin">
+                        <option value="1">USA (JFK/LAX)</option>
+                        <option value="1.2">China (PVG/PEK)</option>
+                        <option value="0.9">Germany (FRA)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Destination</label>
+                    <select class="form-input" id="dest">
+                        <option value="1.2">USA (JFK/LAX)</option>
+                        <option value="1">China (PVG/PEK)</option>
+                        <option value="0.9">Germany (FRA)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Weight (KG)</label>
+                    <input type="number" class="form-input" id="weight" placeholder="Enter weight" min="1">
+                </div>
+
+                <button class="calc-btn" onclick="calculateAirRate()">Calculate Cost</button>
+
+                <div class="calc-result" id="result-box">
+                    <div>Estimated Cost: <span class="price" id="price-display">$0.00</span></div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 5px;">Transit Time: 2-4 Days
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section class="section-padding faq-section">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p style="color: var(--text-muted);">Everything you need to know about air shipping.</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">How is air freight calculated? <span>+</span></button>
+                    <div class="faq-answer">
+                        <p>Air freight is typically calculated based on the "chargeable weight," which is the greater of
+                            the actual weight or the volumetric weight (Dimensions L x W x H / 6000). This ensures
+                            airlines are paid for the space the cargo occupies.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">What items are restricted? <span>+</span></button>
+                    <div class="faq-answer">
+                        <p>Common restrictions include flammable materials, explosives, corrosives, and certain
+                            batteries. However, dangerous goods (DG) can often be shipped with proper documentation and
+                            packaging (DG Declaration).</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Do you offer door-to-door delivery? <span>+</span></button>
+                    <div class="faq-answer">
+                        <p>Yes, we offer comprehensive door-to-door services. This includes pickup from your facility,
+                            flight booking, customs clearance at both ends, and final delivery to the recipient.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CHATBOT -->
+    <div class="chatbot-container">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="bot-avatar">🤖</div>
+                <div>
+                    <div style="font-weight: bold; color: white;">NexBot</div>
+                    <div style="font-size: 0.75rem; color: var(--accent);">Online</div>
+                </div>
+                <button onclick="toggleChat()"
+                    style="margin-left: auto; background: none; color: white; font-size: 1.2rem; cursor: pointer;">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message msg-bot">Hi! I can help you with air freight quotes or tracking.</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message..."
+                    onkeypress="handleEnter(event)">
+                <button class="chat-send" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <div class="chat-toggle" onclick="toggleChat()">💬</div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>NexLogistics</h5>
+                <p style="margin-bottom: 20px; max-width: 250px;">Global leader in air freight and supply chain
+                    solutions.</p>
+                <div style="display: flex; gap: 10px;"><span
+                        style="width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 4px; display: flex; align-items: center; justify-content: center;">in</span>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Services</h5>
+                <ul>
+                    <li><a href="air.html">Air Freight</a></li>
+                    <li><a href="ocien.html">Ocean Freight</a></li>
+                    <li><a href="customs.html">Customs</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Support</h5>
+                <ul>
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="track.html">Track</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="privicy.html">Privacy</a></li>
+                    <li><a href="term.html">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2023 NexLogistics Inc.</div>
+            <div>Designed for Speed</div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Air Freight Calculator (Higher rate than generic)
+        function calculateAirRate() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const originFactor = parseFloat(document.getElementById('origin').value);
+            const destFactor = parseFloat(document.getElementById('dest').value);
+            const resultBox = document.getElementById('result-box');
+
+            if (!weight || weight <= 0) { alert("Please enter valid weight"); return; }
+
+            // Air freight is generally $15-$20 per kg base
+            let baseRate = 15;
+            let total = (baseRate * originFactor * destFactor * weight).toFixed(2);
+
+            document.getElementById('price-display').innerText = `$${total}`;
+            resultBox.style.display = "block";
+        }
+
+        // 2. FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+
+        // 3. Chatbot (Reused)
+        const chatWindow = document.getElementById('chatWindow');
+        const chatBody = document.getElementById('chatBody');
+        const chatInput = document.getElementById('chatInput');
+        function toggleChat() { chatWindow.classList.toggle('open'); if (chatWindow.classList.contains('open')) chatInput.focus(); }
+        function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
+        function sendMessage() {
+            const text = chatInput.value.trim(); if (!text) return;
+            addMessage(text, 'user'); chatInput.value = '';
+            setTimeout(() => {
+                let botReply = "Air freight is the fastest way to ship. Would you like a quote?";
+                if (text.toLowerCase().includes('price')) botReply = "Use the calculator on this page for an estimate.";
+                else if (text.toLowerCase().includes('track')) botReply = "Please use the tracking link in the navbar.";
+                addMessage(botReply, 'bot');
+            }, 1000);
+        }
+        function addMessage(text, sender) {
+            const div = document.createElement('div'); div.classList.add('message'); div.classList.add(sender === 'user' ? 'msg-user' : 'msg-bot'); div.innerText = text;
+            chatBody.appendChild(div); chatBody.scrollTop = chatBody.scrollHeight;
+        }
+    </script>
+</body>
+
+</html>
